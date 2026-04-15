@@ -1,58 +1,193 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🔐 Laboratorio #2 – Implementación del Login en Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **Curso:** Desarrollo Web VII | **Unidad I:** Modelo Vista Controlador (MVC)  
+> **Universidad Tecnológica de Panamá** – Facultad de Ingeniería de Sistemas Computacionales  
+> **Instructor:** Ing. Irina Fong
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Descripción
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Este repositorio documenta la implementación del módulo de autenticación (Login) en Laravel,
+siguiendo la arquitectura Modelo-Vista-Controlador (MVC). Se evidencia el proceso de
+configuración, los comandos utilizados, la estructura del proyecto y los resultados obtenidos.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🎯 Objetivos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Comprender la importancia de la documentación en proyectos de desarrollo de software.
+- Consolidar el aprendizaje de la arquitectura MVC en Laravel.
+- Evidenciar el proceso de configuración e implementación del módulo de login en Laravel.
+- Identificar las dificultades encontradas durante el laboratorio y las soluciones aplicadas.
+- Generar un repositorio académico organizado como referencia para futuras prácticas.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## ⚙️ Requisitos Previos
 
-## Agentic Development
+| Tecnología | Versión / Detalle |
+|---|---|
+| 🐘 PHP | 8.0 o superior |
+| 🎼 Composer | Última versión estable |
+| 🛠️ Laravel Installer | `laravel new` o `composer create-project` |
+| 🌐 Servidor local | XAMPP / WampServer / Laragon |
+| 🖥️ Servidor web | Apache o Nginx |
+| 🗄️ Base de datos | MySQL / MariaDB |
+| 💻 Editor de código | Visual Studio Code (recomendado) |
+| 📦 NPM | [Versión utilizada o "No requerido"] |
+| 🪟 Sistema Operativo | [Windows 10/11 u otro] |
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
+
+## 🚀 Instalación y Configuración
+
+### 1. Clonar o crear el proyecto
 
 ```bash
-composer require laravel/boost --dev
+# Opción A – Laravel Installer
+laravel new nombre-proyecto
 
-php artisan boost:install
+# Opción B – Composer
+composer create-project laravel/laravel nombre-proyecto
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Instalar dependencias
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 3. Configurar el archivo `.env`
 
-## Code of Conduct
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Editar las siguientes variables en `.env`:
 
-## Security Vulnerabilities
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nombre_base_datos
+DB_USERNAME=root
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 4. Paquete de autenticación
 
-## License
+**Opción A – Laravel/UI con Bootstrap:**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+composer require laravel/ui
+php artisan ui bootstrap --auth
+npm install && npm run dev
+```
+
+**Opción B – Laravel Breeze:**
+
+```bash
+composer require laravel/breeze --dev
+php artisan breeze:install
+npm install && npm run dev
+```
+
+---
+
+## 🗂️ Estructura MVC del Proyecto
+
+Laravel organiza el código siguiendo el patrón **Modelo – Vista – Controlador**:
+
+| Carpeta | Rol en MVC | Descripción |
+|---|---|---|
+| `app/Models/` | **Modelo** | Clases que representan las tablas de la base de datos (ej. `User.php`) |
+| `app/Http/Controllers/` | **Controlador** | Lógica de negocio; reciben peticiones y devuelven respuestas |
+| `resources/views/` | **Vista** | Plantillas Blade que renderizan el HTML mostrado al usuario |
+| `routes/web.php` | **Rutas** | Define las URLs y las asocia a controladores o vistas |
+| `database/migrations/` | **Migraciones** | Definen la estructura de las tablas de la base de datos |
+
+---
+
+## 🗄️ Base de Datos
+
+### Configuración en `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=[nombre_db]
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### Comandos de migración utilizados
+
+```bash
+# Crear las tablas en la base de datos
+php artisan migrate
+
+# Si necesitas reiniciar todas las migraciones
+php artisan migrate:fresh
+
+# Ver el estado de las migraciones
+php artisan migrate:status
+```
+
+### Tablas generadas
+
+- `users` – Almacena los usuarios registrados (email, password, timestamps).
+- `password_reset_tokens` – Gestiona los tokens para restablecimiento de contraseña.
+- `sessions` – [Si aplica] Manejo de sesiones en base de datos.
+
+> 📁 El respaldo de la base de datos se encuentra en: [`/database/backup/backup.sql`](./database/backup/backup.sql)
+
+---
+
+## 🖼️ Resultado del Laboratorio
+
+> Captura de la pantalla de Login funcionando:
+
+![Login Screen](./screenshots/login.png)
+
+<!-- Agrega aquí las imágenes que muestran el resultado visible del laboratorio -->
+
+---
+
+## ⚠️ Dificultades y Soluciones
+
+| # | Problema encontrado | Solución aplicada |
+|---|---|---|
+| 1 | [Ej. Error en migraciones por versión de MySQL] | [Ej. Cambiar el motor en `AppServiceProvider`] |
+| 2 | [Ej. `.env` no reconocido] | [Ej. Ejecutar `php artisan config:clear`] |
+| 3 | [Ej. NPM no compilaba assets] | [Ej. Reinstalar con `npm install` y correr `npm run dev`] |
+
+---
+
+## 📚 Referencias
+
+1. Laravel Documentation – Authentication: https://laravel.com/docs/11.x/authentication
+2. Laravel Breeze – Starter Kit: https://laravel.com/docs/11.x/starter-kits#laravel-breeze
+3. PHP - https://www.php.net/
+---
+
+## 📅 Fecha de Ejecución del Laboratorio
+
+**Fecha de realización:** [08/04/2026]  
+
+---
+
+## 👤 Desarrollado por
+
+---
+
+> Este laboratorio ha sido desarrollado por el estudiante de la **Universidad Tecnológica de Panamá**:
+>
+> | Campo | Detalle |
+> |---|---|
+> | **Nombre** | [Roniel Quintero] |
+> | **Correo** | [roniel.quintero@utp.ac.pa] |
+> | **Curso** | Desarrollo de Software VII (DSVII) |
+> | **Instructor** | Ing. Irina Fong |
