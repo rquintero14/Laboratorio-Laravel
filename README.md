@@ -146,16 +146,6 @@ php artisan migrate:status
 
 ---
 
-## 🖼️ Resultado del Laboratorio
-
-> Captura de la pantalla de Login funcionando:
-
-![Login Screen](./screenshots/login.png)
-
-<!-- Agrega aquí las imágenes que muestran el resultado visible del laboratorio -->
-
----
-
 ## ⚠️ Dificultades y Soluciones
 
 | # | Problema encontrado | Solución aplicada |
