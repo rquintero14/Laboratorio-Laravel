@@ -45,11 +45,8 @@ configuración, los comandos utilizados, la estructura del proyecto y los result
 ### 1. Clonar o crear el proyecto
 
 ```bash
-# Opción A – Laravel Installer
-laravel new nombre-proyecto
-
-# Opción B – Composer
-composer create-project laravel/laravel nombre-proyecto
+# Laravel Installer
+laravel new LaboratorioLaravel
 ```
 
 ### 2. Instalar dependencias
@@ -78,15 +75,7 @@ DB_PASSWORD=
 
 ### 4. Paquete de autenticación
 
-**Opción A – Laravel/UI con Bootstrap:**
-
-```bash
-composer require laravel/ui
-php artisan ui bootstrap --auth
-npm install && npm run dev
-```
-
-**Opción B – Laravel Breeze:**
+**Laravel Breeze:**
 
 ```bash
 composer require laravel/breeze --dev
